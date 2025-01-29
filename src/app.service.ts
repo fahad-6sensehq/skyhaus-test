@@ -12,7 +12,7 @@ export class AppService {
     constructor(
         @InjectModel(Video.name)
         private readonly videoModel: Model<Video>,
-    ) {}
+    ) { }
 
     async uploadVideo(file: Express.Multer.File) {
         const s3Response = await AwsServices.S3.uploadFile(file);
@@ -65,6 +65,56 @@ export class AppService {
         });
 
         const data = await resp.text();
+        console.log(data);
+
+        return data;
+    }
+
+    async createTeam() {
+        const accountId = '7f885221-28a9-4cb5-942d-6e24f95b854b';
+        const resp = await fetch(
+            `https://api.frame.io/v2/accounts/${accountId}/teams`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer fio-u-iz60rolbre_ybc4t64_FsaLQ3m6vWNoCDp2v3uFEbh4A3P3VKi03vL1ON4t0ArqZ'
+                },
+                body: JSON.stringify({
+                    access: 'public',
+                    account_id: '7f885221-28a9-4cb5-942d-6e24f95b854b'
+                })
+            }
+        );
+
+        console.log(accountId);
+
+        const data = await resp.json();
+        console.log(data);
+
+        return data;
+    }
+
+    async createAsset() {
+        const assetId = '1c24f2ac-d711-453a-9bb9-60372bf958f5';
+        const resp = await fetch(
+            `https://api.frame.io/v2/assets/${assetId}/children`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    type: 'file',
+                    extension: '.mp4',
+                    filetype: 'video/mp4',
+                    is_realtime_upload: false
+                })
+            }
+        );
+
+        const data = await resp.json();
         console.log(data);
 
         return data;

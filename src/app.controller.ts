@@ -11,7 +11,7 @@ import { AppService } from './app.service';
 
 @Controller()
 export class AppController {
-    constructor(private readonly appService: AppService) {}
+    constructor(private readonly appService: AppService) { }
 
     @Get()
     hello() {
@@ -42,5 +42,15 @@ export class AppController {
     @Get('me/id')
     async getAnAccount(@Param('id') id: string) {
         return await this.appService.getAnAccount(id);
+    }
+
+    @Get('create-team')
+    async createTeam() {
+        return await this.appService.createTeam()
+    }
+
+    @Get('create-asset')
+    async createAsset() {
+        return await this.appService.createAsset()
     }
 }
