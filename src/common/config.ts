@@ -9,6 +9,7 @@ export interface IConfig {
     dbName: string;
     dbQuery: string;
     token: string;
+    notionToken: string;
 }
 
 const getAppConfig = (): IConfig => {
@@ -19,6 +20,7 @@ const getAppConfig = (): IConfig => {
     const dbName = process.env.dbName;
     const dbQuery = process.env.dbQuery;
     const token = process.env.FRAMER_TOKEN
+    const notionToken = process.env.NOTION_TOKEN;
 
     if (!mongodbURL) console.log('mongodbURL must be specified');
     if (!accessKeyId) console.log('accessKeyId must be specified');
@@ -32,7 +34,8 @@ const getAppConfig = (): IConfig => {
         awsRegion,
         dbName,
         dbQuery,
-        token
+        token,
+        notionToken
     };
 };
 export const appConfig = getAppConfig();
